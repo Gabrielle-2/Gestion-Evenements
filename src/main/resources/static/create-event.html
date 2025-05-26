@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Événement</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Créer un Événement</h1>
+    <a href="/index.html">Retour</a>
+</header>
+<main>
+    <form id="create-event-form">
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+            <option value="Conference">Conférence</option>
+            <option value="Concert">Concert</option>
+        </select>
+        <label for="nom">Nom:</label>
+        <input type="text" id="nom" name="nom" required>
+        <label for="date">Date:</label>
+        <input type="datetime-local" id="date" name="date" required>
+        <label for="lieu">Lieu:</label>
+        <input type="text" id="lieu" name="lieu" required>
+        <label for="capaciteMax">Capacité:</label>
+        <input type="number" id="capaciteMax" name="capaciteMax" required>
+        <div id="conference-fields" style="display: none;">
+            <label for="theme">Thème:</label>
+            <input type="text" id="theme" name="theme">
+            <label for="intervenants">Intervenants (séparés par virgules):</label>
+            <input type="text" id="intervenants" name="intervenants">
+        </div>
+        <div id="concert-fields" style="display: none;">
+            <label for="artiste">Artiste:</label>
+            <input type="text" id="artiste" name="artiste">
+            <label for="genreMusical">Genre Musical:</label>
+            <input type="text" id="genreMusical" name="genreMusical">
+        </div>
+        <button type="submit">Créer</button>
+    </form>
+    <p id="form-message"></p>
+</main>
+<script src="/js/scripts.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', setupCreateEventForm);
+</script>
+</body>
+</html>

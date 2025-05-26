@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'Événement</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Détails de l'Événement</h1>
+    <a href="/index.html">Retour</a>
+</header>
+<main>
+    <div id="event-details"></div>
+    <h3>Ajouter un Participant</h3>
+    <form id="add-participant-form">
+        <label for="participantId">ID du Participant:</label>
+        <input type="text" id="participantId" name="participantId" required>
+        <button type="submit">Ajouter</button>
+    </form>
+    <p id="participant-message"></p>
+</main>
+<script src="/js/scripts.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
+        if (eventId) {
+            fetchEventDetails(eventId);
+            setupAddParticipantForm(eventId);
+        }
+    });
+</script>
+</body>
+</html>

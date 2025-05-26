@@ -1,0 +1,431 @@
+/* styles.css - Version améliorée avec animations et design moderne */
+
+:root {
+  --primary-color: #6e8efb;
+  --secondary-color: #a777e3;
+  --accent-color: #4dabf7;
+  --danger-color: #ff6b6b;
+  --success-color: #51cf66;
+  --text-color: #333;
+  --light-text: #f8f9fa;
+  --background-light: #f5f5f5;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+/* Reset et styles de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+}
+
+body {
+  background-color: var(--background-light);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* En-tête amélioré */
+header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--light-text);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+}
+
+header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation améliorée */
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+nav a {
+  color: var(--light-text);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  transition: var(--transition);
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Contenu principal */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  flex: 1;
+}
+
+/* Bouton Retour amélioré */
+a[href="/index.html"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--light-text);
+  text-decoration: none;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+a[href="/index.html"]:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Cartes d'événements améliorées */
+#events-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.event-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+}
+
+.event-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.event-card h3 {
+  color: var(--text-color);
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+
+.event-card p {
+  margin: 0.6rem 0;
+  color: #666;
+  padding-left: 0.5rem;
+}
+
+.event-card .event-type {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.event-card .event-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.event-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  background-color: rgba(110, 142, 251, 0.1);
+  border-radius: 30px;
+  transition: var(--transition);
+  flex: 1;
+  justify-content: center;
+}
+
+.event-card a:hover {
+  background-color: rgba(110, 142, 251, 0.2);
+  transform: translateY(-2px);
+}
+
+.event-card button {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+  flex: 1;
+  font-weight: 500;
+}
+
+.event-card button:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+}
+
+/* Formulaires améliorés */
+form {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  max-width: 600px;
+  margin: 2rem auto;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-header h2 {
+  color: var(--text-color);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-header p {
+  color: #666;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+  color: #555;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: var(--transition);
+  background-color: #f9f9f9;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.2);
+  background-color: white;
+}
+
+button[type="submit"] {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: var(--transition);
+  width: 100%;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+}
+
+/* Messages de formulaire améliorés */
+#form-message, #participant-message {
+  margin: 1.5rem 0;
+  padding: 1.2rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.success {
+  background-color: rgba(81, 207, 102, 0.15);
+  color: var(--success-color);
+  border: 1px solid rgba(81, 207, 102, 0.3);
+}
+
+.error {
+  background-color: rgba(255, 107, 107, 0.15);
+  color: var(--danger-color);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* Détails de l'événement améliorés */
+#event-details {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#event-details h2 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: #555;
+  min-width: 120px;
+}
+
+.detail-value {
+  color: #666;
+  flex: 1;
+}
+
+/* Section d'ajout de participant */
+.add-participant-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  margin-top: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.add-participant-section h3 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+/* Pied de page amélioré */
+footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  color: #666;
+  border-top: 1px solid #eee;
+  background-color: white;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.event-card, form, #event-details {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    padding: 1.2rem;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  main {
+    padding: 0 1.2rem;
+  }
+
+  #events-list {
+    grid-template-columns: 1fr;
+  }
+
+  form, #event-details {
+    padding: 1.8rem;
+  }
+
+  nav {
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .event-card {
+    padding: 1.5rem;
+  }
+
+  form, #event-details {
+    padding: 1.5rem;
+  }
+
+  button[type="submit"] {
+    padding: 0.9rem;
+  }
+}
