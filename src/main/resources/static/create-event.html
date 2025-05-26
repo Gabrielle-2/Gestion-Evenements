@@ -3,23 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un Événement</title>
+    <title>Créer un Événement | EventHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3B82F6',
-                        secondary: '#6366F1',
-                        accent: '#F59E0B',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
         .fade-in {
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -27,8 +17,11 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+        .input-focus {
+            transition: all 0.3s ease;
+        }
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.3);
         }
     </style>
 </head>
@@ -37,10 +30,10 @@
     <div class="container mx-auto px-4 py-6">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div class="flex items-center mb-4 md:mb-0">
-                <i class="fas fa-calendar-alt text-2xl mr-3"></i>
+                <i class="fas fa-calendar-plus text-2xl mr-3"></i>
                 <h1 class="text-2xl md:text-3xl font-bold">Créer un Événement</h1>
             </div>
-            <a href="/index.html" class="flex items-center text-white hover:text-gray-200 transition-colors">
+            <a href="index.html" class="flex items-center text-white hover:text-gray-200 transition-colors bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg">
                 <i class="fas fa-arrow-left mr-2"></i>
                 <span>Retour</span>
             </a>
@@ -49,17 +42,19 @@
 </header>
 
 <main class="container mx-auto px-4 py-8">
-    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
-        <form id="create-event-form" class="space-y-6">
-            <div class="space-y-4">
+    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+        <form id="create-event-form" class="space-y-6 p-8">
+            <div class="space-y-6">
                 <div class="form-group">
-                    <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type d'événement</label>
+                    <label for="type" class="block text-sm font-medium text-gray-700 mb-2">Type d'événement <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <select id="type" name="type" required
-                                class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150">
+                                class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                             <option value="">-- Sélectionnez un type --</option>
                             <option value="Conference">Conférence</option>
                             <option value="Concert">Concert</option>
+                            <option value="Workshop">Atelier</option>
+                            <option value="Exhibition">Exposition</option>
                         </select>
                         <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                             <i class="fas fa-chevron-down text-gray-400"></i>
@@ -67,96 +62,98 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom de l'événement</label>
-                    <div class="relative">
-                        <input type="text" id="nom" name="nom" required
-                               class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150"
-                               placeholder="Nom de l'événement">
-                        <i class="fas fa-tag absolute right-3 top-3 text-gray-400"></i>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="form-group">
-                        <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date et heure</label>
+                        <label for="nom" class="block text-sm font-medium text-gray-700 mb-2">Nom <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <input type="text" id="nom" name="nom" required
+                                   class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                   placeholder="Nom de l'événement">
+                            <i class="fas fa-tag absolute right-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date" class="block text-sm font-medium text-gray-700 mb-2">Date et heure <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <input type="datetime-local" id="date" name="date" required
-                                   class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150 bg-white">
+                                   class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white">
                             <i class="fas fa-calendar-day absolute right-3 top-3 text-gray-400"></i>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="capaciteMax" class="block text-sm font-medium text-gray-700 mb-1">Capacité maximale</label>
+                        <label for="lieu" class="block text-sm font-medium text-gray-700 mb-2">Lieu <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <input type="text" id="lieu" name="lieu" required
+                                   class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                   placeholder="Adresse complète">
+                            <i class="fas fa-map-marker-alt absolute right-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capaciteMax" class="block text-sm font-medium text-gray-700 mb-2">Capacité <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <input type="number" id="capaciteMax" name="capaciteMax" min="1" required
-                                   class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150"
+                                   class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                    placeholder="100">
                             <i class="fas fa-users absolute right-3 top-3 text-gray-400"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="lieu" class="block text-sm font-medium text-gray-700 mb-1">Lieu</label>
-                    <div class="relative">
-                        <input type="text" id="lieu" name="lieu" required
-                               class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150"
-                               placeholder="Adresse ou lieu de l'événement">
-                        <i class="fas fa-map-marker-alt absolute right-3 top-3 text-gray-400"></i>
+                <!-- Conference Fields -->
+                <div id="conference-fields" class="hidden fade-in space-y-6 border-t border-purple-200 pt-6 mt-6">
+                    <h3 class="text-lg font-semibold text-purple-700 flex items-center">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i> Détails de la conférence
+                    </h3>
+                    <div class="form-group">
+                        <label for="theme" class="block text-sm font-medium text-gray-700 mb-2">Thème principal</label>
+                        <input type="text" id="theme" name="theme"
+                               class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Thème de la conférence">
+                    </div>
+                    <div class="form-group">
+                        <label for="intervenants" class="block text-sm font-medium text-gray-700 mb-2">Intervenants</label>
+                        <input type="text" id="intervenants" name="intervenants"
+                               class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Séparés par des virgules">
+                        <p class="mt-2 text-xs text-gray-500">Ex: Jean Dupont, Marie Lambert</p>
                     </div>
                 </div>
 
-                <!-- Conference Fields (Hidden by default) -->
-                <div id="conference-fields" class="hidden fade-in space-y-4">
-                    <div class="border-l-4 border-primary pl-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Détails de la conférence</h3>
-                        <div class="form-group">
-                            <label for="theme" class="block text-sm font-medium text-gray-700 mb-1">Thème</label>
-                            <input type="text" id="theme" name="theme"
-                                   class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150"
-                                   placeholder="Thème de la conférence">
-                        </div>
-                        <div class="form-group">
-                            <label for="intervenants" class="block text-sm font-medium text-gray-700 mb-1">Intervenants</label>
-                            <input type="text" id="intervenants" name="intervenants"
-                                   class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150"
-                                   placeholder="Séparés par des virgules">
-                        </div>
+                <!-- Concert Fields -->
+                <div id="concert-fields" class="hidden fade-in space-y-6 border-t border-purple-200 pt-6 mt-6">
+                    <h3 class="text-lg font-semibold text-purple-700 flex items-center">
+                        <i class="fas fa-music mr-2"></i> Détails du concert
+                    </h3>
+                    <div class="form-group">
+                        <label for="artiste" class="block text-sm font-medium text-gray-700 mb-2">Artiste/Groupe</label>
+                        <input type="text" id="artiste" name="artiste"
+                               class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Nom de l'artiste ou du groupe">
                     </div>
-                </div>
-
-                <!-- Concert Fields (Hidden by default) -->
-                <div id="concert-fields" class="hidden fade-in space-y-4">
-                    <div class="border-l-4 border-secondary pl-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Détails du concert</h3>
-                        <div class="form-group">
-                            <label for="artiste" class="block text-sm font-medium text-gray-700 mb-1">Artiste/Groupe</label>
-                            <input type="text" id="artiste" name="artiste"
-                                   class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150"
-                                   placeholder="Nom de l'artiste ou du groupe">
-                        </div>
-                        <div class="form-group">
-                            <label for="genreMusical" class="block text-sm font-medium text-gray-700 mb-1">Genre musical</label>
-                            <input type="text" id="genreMusical" name="genreMusical"
-                                   class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary focus:outline-none transition duration-150"
-                                   placeholder="Genre musical">
-                        </div>
+                    <div class="form-group">
+                        <label for="genreMusical" class="block text-sm font-medium text-gray-700 mb-2">Genre musical</label>
+                        <input type="text" id="genreMusical" name="genreMusical"
+                               class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Rock, Pop, Jazz...">
                     </div>
                 </div>
             </div>
 
-            <button type="submit"
-                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white gradient-bg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-150">
-                <i class="fas fa-plus-circle mr-2"></i>
-                Créer l'événement
-            </button>
+            <div class="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 pt-6 border-t border-gray-200 mt-6">
+                <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition flex items-center justify-center">
+                    <i class="fas fa-undo mr-2"></i> Réinitialiser
+                </button>
+                <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:opacity-90 transition flex items-center justify-center shadow-md">
+                    <i class="fas fa-plus-circle mr-2"></i> Créer l'événement
+                </button>
+            </div>
         </form>
 
-        <div id="form-message" class="mt-4 text-center hidden">
-            <!-- Success/Error messages will appear here -->
-        </div>
+        <div id="form-message" class="hidden mx-8 mb-8 p-4 rounded-lg text-center"></div>
     </div>
 </main>
 
@@ -189,23 +186,31 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Simulate form submission
-            formMessage.classList.remove('hidden', 'text-red-500', 'text-green-500');
-            formMessage.innerHTML = `
-                <div class="p-4 text-green-700 bg-green-100 rounded-md animate-pulse">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    Événement créé avec succès !
-                </div>
-            `;
-            formMessage.classList.add('text-green-500');
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Création en cours...';
+            submitBtn.disabled = true;
 
-            // Reset the form after 3 seconds
+            // Simulate API call
             setTimeout(() => {
-                form.reset();
-                conferenceFields.classList.add('hidden');
-                concertFields.classList.add('hidden');
-                formMessage.classList.add('hidden');
-            }, 3000);
+                // Show success message
+                formMessage.innerHTML = `
+                    <div class="p-4 bg-green-100 text-green-700 rounded-lg border border-green-200 flex items-center justify-center">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Événement créé avec succès ! Redirection...
+                    </div>
+                `;
+                formMessage.classList.remove('hidden');
+
+                // Reset form and redirect after 2 seconds
+                setTimeout(() => {
+                    form.reset();
+                    conferenceFields.classList.add('hidden');
+                    concertFields.classList.remove('hidden');
+                    window.location.href = 'index.html';
+                }, 2000);
+            }, 1500);
         });
 
         // Set default date to today at current time

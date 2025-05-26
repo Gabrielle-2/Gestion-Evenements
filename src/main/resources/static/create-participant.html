@@ -3,43 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails de l'Événement | EventHub</title>
+    <title>Ajouter Participant | EventHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .bg-gradient-primary {
+        .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .event-card {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            transition: transform 0.3s ease;
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
         }
-        .event-card:hover {
-            transform: translateY(-5px);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .animate-pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.3);
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-100">
+<body class="min-h-screen bg-gray-50">
 <!-- Header -->
-<header class="bg-gradient-primary text-white">
+<header class="gradient-bg text-white shadow-lg">
     <div class="container mx-auto px-4 py-6">
         <div class="flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-calendar-alt text-2xl"></i>
-                <h1 class="text-2xl md:text-3xl font-bold">Détails de l'Événement</h1>
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-user-plus text-2xl"></i>
+                <h1 class="text-2xl md:text-3xl font-bold">Ajouter un Participant</h1>
             </div>
-            <a href="/index.html" class="flex items-center space-x-1 bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition">
+            <a href="index.html" class="flex items-center space-x-2 bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition">
                 <i class="fas fa-arrow-left"></i>
                 <span class="hidden sm:inline">Retour</span>
             </a>
@@ -48,254 +40,131 @@
 </header>
 
 <main class="container mx-auto px-4 py-8">
-    <!-- Event Details Section -->
-    <section id="event-details" class="mb-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            <!-- Loading State -->
-            <div id="loading-event" class="col-span-2 text-center py-12">
-                <div class="animate-pulse flex flex-col items-center">
-                    <div class="h-12 w-12 bg-purple-300 rounded-full mb-4"></div>
-                    <div class="h-4 bg-purple-300 rounded w-1/4 mb-4"></div>
-                    <div class="space-y-4 w-full max-w-md">
-                        <div class="h-4 bg-purple-300 rounded w-3/4"></div>
-                        <div class="h-4 bg-purple-300 rounded w-1/2"></div>
-                        <div class="h-4 bg-purple-300 rounded w-5/6"></div>
-                    </div>
-                </div>
-            </div>
+    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden fade-in">
+        <div class="p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-id-card mr-3 text-purple-500"></i>
+                Informations du Participant
+            </h2>
 
-            <!-- Event Content (will be populated by JS) -->
-            <div id="event-content" class="event-card bg-white rounded-xl p-6 hidden">
-                <div class="flex justify-between items-start mb-4">
+            <form id="participant-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <span class="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full uppercase font-semibold" id="event-category">Conférence</span>
-                        <h2 class="text-2xl md:text-3xl font-bold mt-2" id="event-name">Nom de l'événement</h2>
+                        <label for="firstname" class="block text-sm font-medium text-gray-700 mb-2">
+                            Prénom <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="firstname" name="firstname" required
+                               class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Jean">
                     </div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800" id="event-status">
-                            <span class="w-2 h-2 mr-2 rounded-full bg-green-500"></span>
-                            Actif
-                        </span>
-                </div>
 
-                <div class="flex items-center text-gray-600 mb-4">
-                    <i class="fas fa-calendar-day mr-2 text-purple-500"></i>
-                    <span id="event-date">00/00/0000</span>
-                    <i class="fas fa-clock ml-4 mr-2 text-purple-500"></i>
-                    <span id="event-time">00:00</span>
-                </div>
-
-                <div class="flex items-center text-gray-600 mb-4">
-                    <i class="fas fa-map-marker-alt mr-2 text-purple-500"></i>
-                    <span id="event-location">Lieu de l'événement</span>
-                </div>
-
-                <div class="border-t border-gray-200 pt-4">
-                    <h3 class="font-semibold text-lg mb-2">Description</h3>
-                    <p id="event-description" class="text-gray-700">Description détaillée de l'événement...</p>
-                </div>
-
-                <div class="border-t border-gray-200 pt-4 mt-4">
-                    <h3 class="font-semibold text-lg mb-2">Participants</h3>
-                    <div id="participants-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <!-- Will be populated by JS -->
+                    <div>
+                        <label for="lastname" class="block text-sm font-medium text-gray-700 mb-2">
+                            Nom <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="lastname" name="lastname" required
+                               class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Dupont">
                     </div>
-                    <p id="no-participants" class="text-gray-500 italic">Aucun participant pour le moment.</p>
                 </div>
-            </div>
 
-            <!-- Event Image -->
-            <div id="event-image" class="rounded-xl overflow-hidden hidden">
-                <div class="relative pb-2/3 h-64 lg:h-auto">
-                    <img id="event-poster" src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                         alt="Affiche de l'événement"
-                         class="absolute h-full w-full object-cover rounded-xl">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        Email <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" id="email" name="email" required
+                           class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                           placeholder="jean.dupont@example.com">
                 </div>
-            </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                            Téléphone
+                        </label>
+                        <input type="tel" id="phone" name="phone"
+                               class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="06 12 34 56 78">
+                    </div>
+
+                    <div>
+                        <label for="event" class="block text-sm font-medium text-gray-700 mb-2">
+                            Événement <span class="text-red-500">*</span>
+                        </label>
+                        <select id="event" name="event" required
+                                class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <option value="">Sélectionnez un événement</option>
+                            <option value="1">Conférence Tech (15/12/2023)</option>
+                            <option value="2">Festival de Musique (20/12/2023)</option>
+                            <option value="3">Atelier UX Design (10/01/2024)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
+                        Notes supplémentaires
+                    </label>
+                    <textarea id="notes" name="notes" rows="3"
+                              class="input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                              placeholder="Informations complémentaires..."></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-end space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                        <i class="fas fa-undo mr-2"></i> Réinitialiser
+                    </button>
+                    <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:opacity-90 transition shadow-md">
+                        <i class="fas fa-save mr-2"></i> Enregistrer
+                    </button>
+                </div>
+            </form>
+
+            <div id="form-message" class="mt-6 hidden p-4 rounded-lg"></div>
         </div>
-    </section>
-
-    <!-- Add Participant Form -->
-    <section class="event-card bg-white rounded-xl p-6">
-        <h3 class="text-xl font-bold mb-4 flex items-center">
-            <i class="fas fa-user-plus mr-2 text-purple-500"></i>
-            Ajouter un Participant
-        </h3>
-        <form id="add-participant-form" class="space-y-4">
-            <div>
-                <label for="participantId" class="block text-sm font-medium text-gray-700 mb-1">ID du Participant</label>
-                <div class="mt-1 relative rounded-md shadow-sm">
-                    <input type="text" id="participantId" name="participantId"
-                           class="focus:ring-purple-500 focus:border-purple-500 block w-full pl-4 pr-12 py-3 sm:text-sm border-gray-300 rounded-lg border"
-                           placeholder="P-00001"
-                           required>
-                </div>
-            </div>
-
-            <button type="submit" class="w-full flex justify-center items-center px-4 py-3 border border-transparent text-sm font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition">
-                <i class="fas fa-plus-circle mr-2"></i>
-                Ajouter le Participant
-            </button>
-        </form>
-
-        <div id="participant-message" class="mt-4 p-4 rounded-lg hidden"></div>
-    </section>
-</main>
-
-<footer class="bg-white border-t border-gray-200 mt-12">
-    <div class="container mx-auto px-4 py-6">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                <i class="fas fa-calendar-alt text-purple-600"></i>
-                <span class="font-medium">EventHub</span>
-            </div>
-            <div class="flex space-x-6">
-                <a href="#" class="text-gray-600 hover:text-purple-600">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="#" class="text-gray-600 hover:text-purple-600">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="text-gray-600 hover:text-purple-600">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-        <p class="text-center md:text-left text-gray-500 text-sm mt-4">
-            © 2023 EventHub. Tous droits réservés.
-        </p>
     </div>
-</footer>
+</main>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Simulate loading data
-        const urlParams = new URLSearchParams(window.location.search);
-        const eventId = urlParams.get('id');
+        const form = document.getElementById('participant-form');
+        const messageDiv = document.getElementById('form-message');
 
-        if (eventId) {
-            // Simulating API call with timeout
-            setTimeout(() => {
-                // Hide loader
-                document.getElementById('loading-event').classList.add('hidden');
-
-                // Show content
-                document.getElementById('event-content').classList.remove('hidden');
-                document.getElementById('event-image').classList.remove('hidden');
-
-                // Populate with mock data (in a real app, this would come from API)
-                populateEventDetails();
-                setupAddParticipantForm(eventId);
-            }, 1500);
-        } else {
-            // No event ID provided, redirect?
-            console.error("No event ID provided");
-        }
-
-        // Setup form message handling
-        const messageDiv = document.getElementById('participant-message');
-
-        // Example form submission
-        document.getElementById('add-participant-form')?.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const participantId = document.getElementById('participantId').value;
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enregistrement...';
+            submitBtn.disabled = true;
 
-            // Show success message
-            showMessage(`Participant ${participantId} ajouté avec succès!`, 'success');
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                messageDiv.innerHTML = `
+                    <div class="p-4 bg-green-100 text-green-700 rounded-lg border border-green-200 flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Participant enregistré avec succès !
+                    </div>
+                `;
+                messageDiv.classList.remove('hidden');
 
-            // Add to participants list
-            addParticipant(participantId);
+                // Reset form
+                form.reset();
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
 
-            // Reset form
-            this.reset();
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                }, 3000);
+            }, 1500);
         });
+
+        // Load events for dropdown (in a real app, this would come from API)
+        // Already populated in the HTML for this example
     });
-
-    function populateEventDetails() {
-        // Mock data - in a real app this would come from your API
-        const event = {
-            id: 1,
-            name: "Conférence sur le développement web",
-            category: "Technologie",
-            date: "15/12/2023",
-            time: "09:30",
-            location: "Centre des Congrès, Paris",
-            description: "Une conférence passionnante sur les dernières tendances en développement web avec des intervenants de premier plan. Venez découvrir les frameworks les plus récents et les bonnes pratiques à adopter en 2023.",
-            status: "active",
-            participants: ["P-00012", "P-00034", "P-00056"]
-        };
-
-        // Populate the fields
-        document.getElementById('event-name').textContent = event.name;
-        document.getElementById('event-category').textContent = event.category;
-        document.getElementById('event-date').textContent = event.date;
-        document.getElementById('event-time').textContent = event.time;
-        document.getElementById('event-location').textContent = event.location;
-        document.getElementById('event-description').textContent = event.description;
-        document.getElementById('event-status').textContent = event.status === 'active' ? 'Actif' : 'Inactif';
-
-        // Add participants if any
-        if (event.participants && event.participants.length > 0) {
-            document.getElementById('no-participants').classList.add('hidden');
-            event.participants.forEach(participant => {
-                addParticipant(participant);
-            });
-        }
-    }
-
-    function setupAddParticipantForm(eventId) {
-        console.log(`Setting up form for event ${eventId}`);
-        // You would typically add event listeners here for form submission
-    }
-
-    function showMessage(text, type) {
-        const messageDiv = document.getElementById('participant-message');
-
-        // Reset classes
-        messageDiv.className = 'mt-4 p-4 rounded-lg';
-
-        // Add type-specific classes
-        if (type === 'success') {
-            messageDiv.classList.add('bg-green-100', 'text-green-700', 'border', 'border-green-200');
-        } else {
-            messageDiv.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-200');
-        }
-
-        // Set text and show
-        messageDiv.textContent = text;
-        messageDiv.classList.remove('hidden');
-
-        // Hide after 5 seconds
-        setTimeout(() => {
-            messageDiv.classList.add('hidden');
-        }, 5000);
-    }
-
-    function addParticipant(participantId) {
-        const participantsList = document.getElementById('participants-list');
-        const noParticipants = document.getElementById('no-participants');
-
-        // Hide "no participants" message if it's the first one
-        if (participantsList.children.length === 0) {
-            noParticipants.classList.add('hidden');
-        }
-
-        // Create participant element
-        const participantDiv = document.createElement('div');
-        participantDiv.className = 'flex items-center p-2 bg-gray-50 rounded-lg';
-        participantDiv.innerHTML = `
-            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-800">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="ml-4">
-                <div class="text-sm font-medium text-gray-900">${participantId}</div>
-                <div class="text-sm text-gray-500">Participant</div>
-            </div>
-        `;
-
-        // Add to the list
-        participantsList.appendChild(participantDiv);
-    }
 </script>
 </body>
 </html>
